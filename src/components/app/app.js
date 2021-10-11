@@ -27,6 +27,7 @@ export default class App extends React.Component {
       this.createToDoItem("Have a lunch"),
     ],
     term: "",
+    filter: "all", //all, active, done
   };
 
   findItemIndex = (id, arr) => {
@@ -96,10 +97,23 @@ export default class App extends React.Component {
     );
   }
 
-  render() {
-    const { todoData, term } = this.state;
+  filter(items, filter) {
+    switch (filter) {
+      case "all":
+        return items;
+      case "active":
+        return items.filter((item) => !item.done);
+      case "done":
+        return items.filter((item) => item.done);
+      default:
+        return items;
+    }
+  }
 
-    const visibleItems = this.search(todoData, term);
+  render() {
+    const { todoData, term, filter } = this.state;
+
+    const visibleItems = this.filter(this.search(todoData, term), filter);
 
     const doneCount = todoData.filter((el) => el.done).length;
     const toDoCount = todoData.length - doneCount;
