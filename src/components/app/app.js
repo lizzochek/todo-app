@@ -11,14 +11,6 @@ import "./app.css";
 export default class App extends React.Component {
   maxId = 100;
 
-  state = {
-    todoData: [
-      this.createToDoItem("Drink coffee"),
-      this.createToDoItem("Make an app"),
-      this.createToDoItem("Have a lunch"),
-    ],
-  };
-
   createToDoItem = (label) => {
     return {
       label,
@@ -27,6 +19,15 @@ export default class App extends React.Component {
       done: false,
     };
   };
+
+  state = {
+    todoData: [
+      this.createToDoItem("Drink coffee"),
+      this.createToDoItem("Make an app"),
+      this.createToDoItem("Have a lunch"),
+    ],
+  };
+
   deleteItem = (id) => {
     this.setState(({ todoData }) => {
       const index = todoData.findIndex((el) => el.id === id);
