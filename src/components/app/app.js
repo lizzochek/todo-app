@@ -26,6 +26,7 @@ export default class App extends React.Component {
       this.createToDoItem("Make an app"),
       this.createToDoItem("Have a lunch"),
     ],
+    term: "lunch",
   };
 
   findItemIndex = (id, arr) => {
@@ -83,8 +84,16 @@ export default class App extends React.Component {
     });
   };
 
+  search(items, term) {
+    if (term === "") return items;
+
+    return items.filter((item) => item.label.indexOf(term) > -1);
+  }
+
   render() {
-    const { todoData } = this.state;
+    const { todoData, term } = this.state;
+
+    const visibleItems = this.search(todoData, term);
 
     const doneCount = todoData.filter((el) => el.done).length;
     const toDoCount = todoData.length - doneCount;
@@ -98,7 +107,7 @@ export default class App extends React.Component {
         </div>
 
         <TodoList
-          todos={todoData}
+          todos={visibleItems}
           onDeleted={this.deleteItem}
           onToggleImportant={this.onToggleImportant}
           onToggleDone={this.onToggleDone}
