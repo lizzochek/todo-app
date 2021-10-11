@@ -13,12 +13,20 @@ export default class App extends React.Component {
 
   state = {
     todoData: [
-      { label: "Drink Coffee", important: false, id: 1 },
-      { label: "Make an app", important: true, id: 2 },
-      { label: "Have a lunch", important: false, id: 3 },
+      this.createToDoItem("Drink coffee"),
+      this.createToDoItem("Make an app"),
+      this.createToDoItem("Have a lunch"),
     ],
   };
 
+  createToDoItem = (label) => {
+    return {
+      label,
+      important: false,
+      id: this.maxId++,
+      done: false,
+    };
+  };
   deleteItem = (id) => {
     this.setState(({ todoData }) => {
       const index = todoData.findIndex((el) => el.id === id);
@@ -34,11 +42,7 @@ export default class App extends React.Component {
   };
 
   addItem = (text) => {
-    const newItem = {
-      label: text,
-      important: false,
-      id: this.maxId++,
-    };
+    const newItem = this.createToDoItem(text);
 
     this.setState(({ todoData }) => {
       const newData = [...todoData, newItem];
