@@ -26,7 +26,7 @@ export default class App extends React.Component {
       this.createToDoItem("Make an app"),
       this.createToDoItem("Have a lunch"),
     ],
-    term: "lunch",
+    term: "",
   };
 
   findItemIndex = (id, arr) => {
@@ -84,6 +84,10 @@ export default class App extends React.Component {
     });
   };
 
+  onSearchChange = (term) => {
+    this.setState({ term });
+  };
+
   search(items, term) {
     if (term === "") return items;
 
@@ -102,7 +106,7 @@ export default class App extends React.Component {
       <div className="todo-app">
         <AppHeader toDo={toDoCount} done={doneCount} />
         <div className="top-panel d-flex">
-          <SearchPanel />
+          <SearchPanel onSearchChange={this.onSearchChange} />
           <ItemStatusFilter />
         </div>
 
