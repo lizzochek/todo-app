@@ -91,7 +91,9 @@ export default class App extends React.Component {
   search(items, term) {
     if (term === "") return items;
 
-    return items.filter((item) => item.label.indexOf(term) > -1);
+    return items.filter(
+      (item) => item.label.toLowerCase().indexOf(term.toLowerCase()) > -1
+    );
   }
 
   render() {
