@@ -28,9 +28,13 @@ export default class App extends React.Component {
     ],
   };
 
+  findItemIndex = (id) => {
+    return this.state.todoData.findIndex((el) => el.id === id);
+  };
+
   deleteItem = (id) => {
     this.setState(({ todoData }) => {
-      const index = todoData.findIndex((el) => el.id === id);
+      const index = this.findItemIndex(id);
       const newData = [
         ...todoData.slice(0, index),
         ...todoData.slice(index + 1),
@@ -55,11 +59,41 @@ export default class App extends React.Component {
   };
 
   onToggleImportant = (id) => {
-    console.log("Toggle important " + id);
+    this.setState(({ todoData }) => {
+      const index = this.findItemIndex(id);
+      const oldItem = todoData[index];
+
+      const newItem = { ...oldItem, important: !oldItem.important };
+
+      const newData = [
+        ...todoData.slice(0, index),
+        newItem,
+        ...todoData.slice(index + 1),
+      ];
+
+      return {
+        todoData: newData,
+      };
+    });
   };
 
   onToggleDone = (id) => {
-    console.log("Toggle done " + id);
+    this.setState(({ todoData }) => {
+      const index = this.findItemIndex(id);
+      const oldItem = todoData[index];
+
+      const newItem = { ...oldItem, done: !oldItem.done };
+
+      const newData = [
+        ...todoData.slice(0, index),
+        newItem,
+        ...todoData.slice(index + 1),
+      ];
+
+      return {
+        todoData: newData,
+      };
+    });
   };
 
   render() {
