@@ -1,3 +1,7 @@
 .task-adder {
   margin-top: 10px;
 }
+
+.task-adder input {
+  margin-right: 3px;
+}
