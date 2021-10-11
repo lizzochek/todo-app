@@ -17,8 +17,9 @@ export default class TaskAdder extends React.Component {
     event.preventDefault();
     this.props.onAdd(this.state.label);
 
-    const input = document.querySelector("#input");
-    input.value = "";
+    this.setState({
+      label: "",
+    });
   };
 
   render() {
@@ -30,6 +31,7 @@ export default class TaskAdder extends React.Component {
           className="form-control"
           onChange={this.onLabelChange}
           placeholder="What needs to be done"
+          value={this.state.label}
         ></input>
         <button className="btn btn-outline-secondary">Add Task</button>
       </form>
